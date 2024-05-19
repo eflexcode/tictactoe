@@ -7,3 +7,5 @@ spring:
       host: localhost
       database: tictacteo
 
+server:
+  port: 8081

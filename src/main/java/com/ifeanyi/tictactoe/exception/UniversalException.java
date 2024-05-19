@@ -13,7 +13,7 @@ import java.util.Date;
 public class UniversalException extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ExceptionResponse>HandleException(Exception exception, WebRequest webRequest){
+    public ResponseEntity<ExceptionResponse>HandleException(Exception exception){
 
         ExceptionResponse exceptionResponse = ExceptionResponse.builder()
                 .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
@@ -26,7 +26,7 @@ public class UniversalException extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity<ExceptionResponse>HandleException(NotFoundException exception, WebRequest webRequest){
+    public ResponseEntity<ExceptionResponse>HandleException(NotFoundException exception){
 
         ExceptionResponse exceptionResponse = ExceptionResponse.builder()
                 .code(HttpStatus.NOT_FOUND.value())

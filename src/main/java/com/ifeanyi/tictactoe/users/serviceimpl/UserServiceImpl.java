@@ -23,6 +23,7 @@ public class UserServiceImpl implements UserService {
 
         User user = new User();
         BeanUtils.copyProperties(createUserModel,user);
+        user.setStatus(Status.ONLINE);
 
         return userRepository.save(user);
     }

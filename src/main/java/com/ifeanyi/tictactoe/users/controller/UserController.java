@@ -6,36 +6,42 @@ import com.ifeanyi.tictactoe.users.model.CreateUserModel;
 import com.ifeanyi.tictactoe.users.model.UserModel;
 import com.ifeanyi.tictactoe.users.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/users")
+@RequiredArgsConstructor
+
+@Slf4j
 public class UserController {
 
     private final UserService userService;
 
-    @PostMapping
+    @PostMapping("/create")
     @ResponseStatus(HttpStatus.OK)
     public User create(@RequestBody CreateUserModel userModel) {
+        System.out.println("ssssssssssssssssssssss");
         return userService.create(userModel);
     }
 
-    @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
+    @PutMapping("/update/{id}")
+//    @ResponseStatus(HttpStatus.OK)
     public User update(@PathVariable String id, @RequestBody UserModel userModel) throws NotFoundException {
         return userService.update(id, userModel);
     }
 
-    @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/get/{id}")
+//    @ResponseStatus(HttpStatus.OK)
     public User get(@PathVariable String id) throws NotFoundException {
+        log.debug("got here uuuuuuuuuu");
+
         return userService.get(id);
     }
 
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
+    @DeleteMapping("/delete/{id}")
+//    @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable String id) throws NotFoundException {
          userService.delete(id);
     }// remember to test if delete return exception

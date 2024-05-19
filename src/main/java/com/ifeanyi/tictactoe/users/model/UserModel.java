@@ -9,7 +9,7 @@ public class UserModel {
     private String username;
     private String email;
     private String password;
-    private Status imageUrl;
+    private String imageUrl;
     private String country;
     private String description;
     private Status status = Status.ONLINE;
