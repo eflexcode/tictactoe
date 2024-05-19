@@ -10,6 +10,8 @@ public class UserModel {
     private String email;
     private String password;
     private Status imageUrl;
+    private String country;
+    private String description;
     private Status status = Status.ONLINE;
     private Long gamesPlayed = 0L;
     private Long gamesWon = 0L;

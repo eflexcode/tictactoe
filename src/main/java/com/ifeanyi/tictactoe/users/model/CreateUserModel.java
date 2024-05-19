@@ -10,5 +10,7 @@ public class CreateUserModel {
     private String email;
     private String password;
     private Status imageUrl;
+    private String country;
+    private String description;
 
 }
