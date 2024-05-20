@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.util.Date;
 
 @Data
-@Document(collection = "users")
+@Document(collection = "games")
 public class Game {
 
     @Id
@@ -16,6 +16,7 @@ public class Game {
     private String secondPlayerId;
     private State state = State.HOLD;
     private Date createdAt;
+    private Date endedAt;
     private Integer[][] board = new Integer[3][3];
     private String winnerId;
     private Boolean draw;

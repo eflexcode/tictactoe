@@ -7,7 +7,6 @@ import org.springframework.data.mongodb.core.index.Indexed;
 @Data
 public class CreateUserModel {
 
-
     private String username;
     private String email;
     private String password;
