@@ -22,7 +22,6 @@ public class UniversalException extends ResponseEntityExceptionHandler {
                 .build();
 
         return new ResponseEntity<>(exceptionResponse,HttpStatus.INTERNAL_SERVER_ERROR);
-
     }
 
     @ExceptionHandler(NotFoundException.class)
@@ -35,6 +34,31 @@ public class UniversalException extends ResponseEntityExceptionHandler {
                 .build();
 
         return new ResponseEntity<>(exceptionResponse,HttpStatus.NOT_FOUND);
+
+    }
+
+    @ExceptionHandler(InvalidMoveException.class)
+    public ResponseEntity<ExceptionResponse>HandleException(InvalidMoveException exception){
+
+        ExceptionResponse exceptionResponse = ExceptionResponse.builder()
+                .code(HttpStatus.FORBIDDEN.value())
+                .message(exception.getMessage())
+                .timestamp(new Date())
+                .build();
+
+        return new ResponseEntity<>(exceptionResponse,HttpStatus.FORBIDDEN);
+
+    }
+@ExceptionHandler(GameFinished.class)
+    public ResponseEntity<ExceptionResponse>HandleException(GameFinished exception){
+
+        ExceptionResponse exceptionResponse = ExceptionResponse.builder()
+                .code(HttpStatus.LOCKED.value())
+                .message(exception.getMessage())
+                .timestamp(new Date())
+                .build();
+
+        return new ResponseEntity<>(exceptionResponse,HttpStatus.LOCKED);
 
     }
 

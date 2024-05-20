@@ -1,8 +1,11 @@
 package com.ifeanyi.tictactoe.games.controller;
 
+import com.ifeanyi.tictactoe.exception.GameFinished;
+import com.ifeanyi.tictactoe.exception.InvalidMoveException;
 import com.ifeanyi.tictactoe.exception.NotFoundException;
 import com.ifeanyi.tictactoe.games.entity.Game;
 import com.ifeanyi.tictactoe.games.model.JoinGame;
+import com.ifeanyi.tictactoe.games.model.PlayGame;
 import com.ifeanyi.tictactoe.games.service.GameService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,8 +26,14 @@ public class GameController {
 
     @PostMapping("/join")
     @ResponseStatus(HttpStatus.OK)
-    public Game join(@RequestBody JoinGame game) throws NotFoundException {
+    public Game join(@RequestBody JoinGame game) throws NotFoundException, GameFinished {
         return gameService.join(game);
+    }
+
+    @PostMapping("/play")
+    @ResponseStatus(HttpStatus.OK)
+    public Game play(@RequestBody PlayGame playGame) throws NotFoundException, InvalidMoveException {
+        return gameService.playGame(playGame);
     }
 
     @GetMapping("/get/{id}")
