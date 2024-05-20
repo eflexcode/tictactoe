@@ -3,6 +3,8 @@ package com.ifeanyi.tictactoe.games.serviceimpl;
 import com.ifeanyi.tictactoe.exception.InvalidMoveException;
 import com.ifeanyi.tictactoe.exception.NotFoundException;
 import com.ifeanyi.tictactoe.games.entity.Game;
+import com.ifeanyi.tictactoe.games.entity.State;
+import com.ifeanyi.tictactoe.games.model.JoinGame;
 import com.ifeanyi.tictactoe.games.model.PlayGame;
 import com.ifeanyi.tictactoe.games.repository.GameRepository;
 import com.ifeanyi.tictactoe.games.service.GameService;
@@ -21,6 +23,16 @@ public class GameServiceImpl implements GameService {
     @Override
     public Game create(Game game) {
         game.setCreatedAt(new Date());
+        return gameRepository.save(game);
+    }
+
+    @Override
+    public Game join(JoinGame joinGame) throws NotFoundException {
+
+        Game game = get(joinGame.getGameId());
+        game.setState(State.ONGOING);
+        game.setSecondPlayerId(joinGame.getUserId());
+
         return gameRepository.save(game);
     }
 

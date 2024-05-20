@@ -11,7 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/user")
 @RequiredArgsConstructor
 
 @Slf4j
@@ -27,13 +27,13 @@ public class UserController {
     }
 
     @PutMapping("/update/{id}")
-//    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.OK)
     public User update(@PathVariable String id, @RequestBody UserModel userModel) throws NotFoundException {
         return userService.update(id, userModel);
     }
 
     @GetMapping("/get/{id}")
-//    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.OK)
     public User get(@PathVariable String id) throws NotFoundException {
         log.debug("got here uuuuuuuuuu");
 
@@ -41,7 +41,7 @@ public class UserController {
     }
 
     @DeleteMapping("/delete/{id}")
-//    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.OK)
     public void delete(@PathVariable String id) throws NotFoundException {
          userService.delete(id);
     }// remember to test if delete return exception

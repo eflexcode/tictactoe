@@ -14,7 +14,7 @@ public class Game {
     private String id;
     private String firstPlayerId;
     private String secondPlayerId;
-    private State state;
+    private State state = State.HOLD;
     private Date createdAt;
     private Integer[][] board = new Integer[3][3];
     private String winnerId;
