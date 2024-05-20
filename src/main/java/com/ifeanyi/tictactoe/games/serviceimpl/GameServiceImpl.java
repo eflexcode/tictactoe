@@ -16,7 +16,6 @@ public class GameServiceImpl implements GameService {
 
     private final GameRepository gameRepository;
 
-
     @Override
     public Game create(Game game) {
         game.setCreatedAt(new Date());
@@ -32,7 +31,7 @@ public class GameServiceImpl implements GameService {
         savedGame.setState(sentgame.getState() != null ? sentgame.getState() : savedGame.getState());
         savedGame.setDraw(sentgame.getDraw() != null ? sentgame.getDraw() : savedGame.getDraw());
         savedGame.setWinnerId(sentgame.getWinnerId() != null ? sentgame.getWinnerId() : savedGame.getWinnerId());
-
+        savedGame.setBoard(sentgame.getBoard() != null ? sentgame.getBoard() : savedGame.getBoard());
 
         return gameRepository.save(savedGame);
     }
