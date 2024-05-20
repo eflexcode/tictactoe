@@ -16,7 +16,7 @@ public class Game {
     private String secondPlayerId;
     private State state;
     private Date createdAt;
-    private int[][] board = new int[3][3];
+    private Integer[][] board = new Integer[3][3];
     private String winnerId;
     private Boolean draw;
 
