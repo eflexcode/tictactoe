@@ -64,13 +64,19 @@ public class GameServiceImpl implements GameService {
             throw new InvalidMoveException("Either of these moves " + playGame.getX() + " " + playGame.getY() + " is invalid");
         }
 
-        Integer[][] board =  savedGame.getBoard();
+        Integer[][] board = savedGame.getBoard();
 
-       for (int i =0; i<= board.length ;i++){
-           if (board[playGame.getX()][playGame.getY()] == i){
-               System.out.println("move already played");
-           }
-       }
+        if (board[playGame.getX()][playGame.getY()] != null) {
+            throw new InvalidMoveException("Move already played");
+        }
+
+//       for (int i =0; i<= board.length ;i++){
+//           if (board[playGame.getX()][playGame.getY()] == i){
+//               System.out.println("move already played");
+//           }
+//       }
+
+        board[playGame.getX()][playGame.getY()] = playGame.getMove();
 
         return update(playGame.getGameId(), savedGame);
     }
