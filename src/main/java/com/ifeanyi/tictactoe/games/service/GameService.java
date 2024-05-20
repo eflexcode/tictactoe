@@ -11,6 +11,8 @@ public interface GameService {
 
     Game get(String id) throws NotFoundException;
 
+    Game playGame();
+
     void delete(String id) throws NotFoundException;
 
 }
