@@ -32,7 +32,7 @@ public class GameServiceImpl implements GameService {
 
         Game game = get(joinGame.getGameId());
 
-        if (game.getState() == State.FINISHED){
+        if (game.getState() == State.FINISHED) {
             throw new GameFinished("Game is closed");
         }
 
@@ -70,28 +70,49 @@ public class GameServiceImpl implements GameService {
             throw new InvalidMoveException("Either of these moves " + playGame.getX() + " " + playGame.getY() + " is invalid");
         }
 
-//        Integer[][] board = savedGame.getBoard();
-
         if (savedGame.getBoard()[playGame.getX()][playGame.getY()] != null) {
             throw new InvalidMoveException("Move already played");
         }
 
         savedGame.getBoard()[playGame.getX()][playGame.getY()] = playGame.getMove();
 
-//        if (checkIfWin(savedGame.getBoard())){
-//            savedGame.setWinnerId(playGame.getWhoIsPlayingId());
-//            savedGame.setState(State.FINISHED);
-//        }
+        try {
+            if (checkIfWin(savedGame.getBoard(), playGame.getMove())) {
+                savedGame.setWinnerId(playGame.getWhoIsPlayingId());
+                savedGame.setState(State.FINISHED);
+            }
+        }catch (Exception ignored){
+
+        }
 
         return update(playGame.getGameId(), savedGame);
     }
 
-//    private boolean checkIfWin(Integer[][] board) {
-//
-//        int[][] winingPosition = {{0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 3, 6}, {1, 4, 7}, {2, 5, 8}, {0, 4, 8}, {2, 4, 6}};
-//
-//
-//    }
+    private boolean checkIfWin(Integer[][] board, Integer move) {
+
+        int count = 0; // current player has won
+
+        int[][] winingPosition = {{0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 3, 6}, {1, 4, 7}, {2, 5, 8}, {0, 4, 8}, {2, 4, 6}};
+
+        for (int i = 0; i <= winingPosition.length; i++) {
+
+            for (int j = 0; j <= winingPosition[i].length; j++) {
+
+                int positionValue = board[i][j];
+
+                if (positionValue == move) {
+                    count++;
+                    if (count == 3) {
+                        return true;
+                    }
+                }
+
+            }
+
+        }
+
+        return false;
+    }
 
     @Override
     public void delete(String id) throws NotFoundException {
