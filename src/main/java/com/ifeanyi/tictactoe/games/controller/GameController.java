@@ -30,12 +30,6 @@ public class GameController {
         return gameService.join(game);
     }
 
-    @PostMapping("/play")
-    @ResponseStatus(HttpStatus.OK)
-    public Game play(@RequestBody PlayGame playGame) throws NotFoundException, InvalidMoveException {
-        return gameService.playGame(playGame);
-    }
-
     @GetMapping("/get/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Game get(@PathVariable String id) throws NotFoundException {

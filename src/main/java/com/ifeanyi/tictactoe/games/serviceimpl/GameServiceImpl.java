@@ -9,11 +9,10 @@ import com.ifeanyi.tictactoe.games.model.JoinGame;
 import com.ifeanyi.tictactoe.games.model.PlayGame;
 import com.ifeanyi.tictactoe.games.repository.GameRepository;
 import com.ifeanyi.tictactoe.games.service.GameService;
-import com.ifeanyi.tictactoe.users.entity.User;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.Date;
 
 @Service
@@ -89,8 +88,6 @@ public class GameServiceImpl implements GameService {
     }
 
     private boolean checkIfWin(int[][] board, Integer move) {
-
-        int count = 0; // current player has won
 
         if (board[0][0] == move && board[0][1] == move && board[0][2] == move) {
             return true;
