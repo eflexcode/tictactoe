@@ -67,25 +67,23 @@ public class GameServiceImpl implements GameService {
 
         Game savedGame = get(playGame.getGameId());
 
-//        if (playGame.getX() > 2 || playGame.getY() > 2) {
-//            throw new InvalidMoveException("Either of these moves " + playGame.getX() + " " + playGame.getY() + " is invalid");
-//        }
-//
-//        if (savedGame.getBoard()[playGame.getX()][playGame.getY()] != null) {
-//            throw new InvalidMoveException("Move already played");
-//        }
+        if (playGame.getX() > 2 || playGame.getY() > 2) {
+            throw new InvalidMoveException("Either of these moves " + playGame.getX() + " " + playGame.getY() + " is invalid");
+        }
 
-        savedGame.getBoard()[playGame.getX()][playGame.getY()] = playGame.getMove();
+        if (savedGame.getBoard()[playGame.getX()][playGame.getY()] != 0) {
+            throw new InvalidMoveException("Move already played");
+        }
 
-//        try {
+       int[][] board = savedGame.getBoard();
+       board[playGame.getX()][playGame.getY()] = playGame.getMove();
+       savedGame.setBoard(board);
+
         if (checkIfWin(savedGame.getBoard(), playGame.getMove())) {
             savedGame.setWinnerId(playGame.getWhoIsPlayingId());
             savedGame.setState(State.FINISHED);
             savedGame.setEndedAt(new Date());
         }
-//        }catch (Exception ignored){
-//            System.out.println("crasheddddddddddddddddddddddddddddddd");
-//        }
 
         return update(playGame.getGameId(), savedGame);
     }
@@ -121,3 +119,11 @@ public class GameServiceImpl implements GameService {
         gameRepository.deleteById(id);
     }
 }
+//{
+//        "gameId":"664bf8d1d9eb5b535c7ed2da",
+//        "whoIsPlayingId":"664be3c95a0ac92050489e52",
+//        "x":1,
+//        "y":0,
+//        "move":1
+//
+//}
