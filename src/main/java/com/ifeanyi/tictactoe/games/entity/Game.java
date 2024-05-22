@@ -17,7 +17,7 @@ public class Game {
     private State state = State.HOLD;
     private Date createdAt;
     private Date endedAt;
-    private Integer[][] board = new Integer[3][3];
+    private int[][] board = new int[3][3];
     private String winnerId;
     private Boolean draw;
 

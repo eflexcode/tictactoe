@@ -13,6 +13,7 @@ import com.ifeanyi.tictactoe.users.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.Date;
 
 @Service
@@ -66,49 +67,49 @@ public class GameServiceImpl implements GameService {
 
         Game savedGame = get(playGame.getGameId());
 
-        if (playGame.getX() > 2 || playGame.getY() > 2) {
-            throw new InvalidMoveException("Either of these moves " + playGame.getX() + " " + playGame.getY() + " is invalid");
-        }
-
-        if (savedGame.getBoard()[playGame.getX()][playGame.getY()] != null) {
-            throw new InvalidMoveException("Move already played");
-        }
+//        if (playGame.getX() > 2 || playGame.getY() > 2) {
+//            throw new InvalidMoveException("Either of these moves " + playGame.getX() + " " + playGame.getY() + " is invalid");
+//        }
+//
+//        if (savedGame.getBoard()[playGame.getX()][playGame.getY()] != null) {
+//            throw new InvalidMoveException("Move already played");
+//        }
 
         savedGame.getBoard()[playGame.getX()][playGame.getY()] = playGame.getMove();
 
-        try {
-            if (checkIfWin(savedGame.getBoard(), playGame.getMove())) {
-                savedGame.setWinnerId(playGame.getWhoIsPlayingId());
-                savedGame.setState(State.FINISHED);
-            }
-        }catch (Exception ignored){
-
+//        try {
+        if (checkIfWin(savedGame.getBoard(), playGame.getMove())) {
+            savedGame.setWinnerId(playGame.getWhoIsPlayingId());
+            savedGame.setState(State.FINISHED);
+            savedGame.setEndedAt(new Date());
         }
+//        }catch (Exception ignored){
+//            System.out.println("crasheddddddddddddddddddddddddddddddd");
+//        }
 
         return update(playGame.getGameId(), savedGame);
     }
 
-    private boolean checkIfWin(Integer[][] board, Integer move) {
+    private boolean checkIfWin(int[][] board, Integer move) {
 
         int count = 0; // current player has won
 
-        int[][] winingPosition = {{0, 1, 2}, {3, 4, 5}, {6, 7, 8}, {0, 3, 6}, {1, 4, 7}, {2, 5, 8}, {0, 4, 8}, {2, 4, 6}};
-
-        for (int i = 0; i <= winingPosition.length; i++) {
-
-            for (int j = 0; j <= winingPosition[i].length; j++) {
-
-                int positionValue = board[i][j];
-
-                if (positionValue == move) {
-                    count++;
-                    if (count == 3) {
-                        return true;
-                    }
-                }
-
-            }
-
+        if (board[0][0] == move && board[0][1] == move && board[0][2] == move) {
+            return true;
+        } else if (board[1][0] == move && board[1][1] == move && board[1][2] == move) {
+            return true;
+        } else if (board[2][0] == move && board[2][1] == move && board[2][2] == move) {
+            return true;
+        } else if (board[0][0] == move && board[1][0] == move && board[2][0] == move) {
+            return true;
+        } else if (board[0][1] == move && board[1][1] == move && board[2][1] == move) {
+            return true;
+        } else if (board[0][2] == move && board[1][2] == move && board[2][2] == move) {
+            return true;
+        } else if (board[0][0] == move && board[1][1] == move && board[2][2] == move) {
+            return true;
+        } else if (board[0][2] == move && board[1][1] == move && board[2][0] == move) {
+            return true;
         }
 
         return false;

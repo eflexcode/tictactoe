@@ -12,17 +12,17 @@ import java.util.Date;
 @ControllerAdvice
 public class UniversalException extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ExceptionResponse>HandleException(Exception exception){
-
-        ExceptionResponse exceptionResponse = ExceptionResponse.builder()
-                .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                .message(exception.getMessage())
-                .timestamp(new Date())
-                .build();
-
-        return new ResponseEntity<>(exceptionResponse,HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<ExceptionResponse>HandleException(Exception exception){
+//
+//        ExceptionResponse exceptionResponse = ExceptionResponse.builder()
+//                .code(HttpStatus.INTERNAL_SERVER_ERROR.value())
+//                .message(exception.getMessage())
+//                .timestamp(new Date())
+//                .build();
+//
+//        return new ResponseEntity<>(exceptionResponse,HttpStatus.INTERNAL_SERVER_ERROR);
+//    }
 
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<ExceptionResponse>HandleException(NotFoundException exception){
