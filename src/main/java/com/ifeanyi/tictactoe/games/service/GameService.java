@@ -13,7 +13,7 @@ public interface GameService {
 
     Game join(JoinGame joinGame) throws NotFoundException, GameFinished;
 
-    Game update(String id,Game game) throws NotFoundException;
+    Game update(String id, Game game) throws NotFoundException;
 
     Game get(String id) throws NotFoundException;
 

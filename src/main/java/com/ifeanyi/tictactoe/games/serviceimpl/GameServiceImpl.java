@@ -20,6 +20,7 @@ import java.util.Date;
 public class GameServiceImpl implements GameService {
 
     private final GameRepository gameRepository;
+    private final SimpMessagingTemplate messagingTemplate;
 
     @Override
     public Game create(Game game) {
@@ -53,7 +54,7 @@ public class GameServiceImpl implements GameService {
         savedGame.setWinnerId(sentgame.getWinnerId() != null ? sentgame.getWinnerId() : savedGame.getWinnerId());
         savedGame.setBoard(sentgame.getBoard() != null ? sentgame.getBoard() : savedGame.getBoard());
 
-        return gameRepository.save(savedGame);
+       return gameRepository.save(savedGame);
     }
 
     @Override
@@ -84,7 +85,19 @@ public class GameServiceImpl implements GameService {
             savedGame.setEndedAt(new Date());
         }
 
-        return update(playGame.getGameId(), savedGame);
+       Game updatedGame = update(playGame.getGameId(), savedGame);
+
+        String sendSocketDataToId;
+
+        if (playGame.getWhoIsPlayingId().equals(updatedGame.getFirstPlayerId())){
+            sendSocketDataToId = updatedGame.getFirstPlayerId();
+        }else {
+            sendSocketDataToId = updatedGame.getSecondPlayerId();
+        }
+
+        messagingTemplate.convertAndSendToUser(sendSocketDataToId,"/queue/gameplay",updatedGame);
+
+        return updatedGame;
     }
 
     private boolean checkIfWin(int[][] board, Integer move) {

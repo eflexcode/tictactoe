@@ -20,12 +20,12 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class PlayController {
 
     private final GameService gameService;
-    private final SimpMessagingTemplate messagingTemplate;
+
 
     @MessageMapping("/play")
     @ResponseStatus(HttpStatus.OK)
     public Game play(@Payload PlayGame playGame) throws NotFoundException, InvalidMoveException {
-        return gameService.playGame(playGame);
+       return gameService.playGame(playGame);
     }
 
 }
